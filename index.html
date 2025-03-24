@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relógio e Tempo Decorrido</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #relogio, #tempo-decorrido {
+            font-size: 36px;
+            font-weight: bold;
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="relogio">00:00:00</div>
+    <div id="tempo-decorrido">Tempo decorrido: 0 anos, 0 dias, 0 horas, 0 minutos, 0 segundos</div>
+
+    <script>
+        // Data inicial (Ano, Mês (0-11), Dia, Hora, Minuto, Segundo)
+        const dataInicial = new Date(2022, 9, 28, 20, 0, 0); // Exemplo: 28 de outubro de 2022 às 20:00:00
+
+        function atualizarTempo() {
+            const agora = new Date();
+
+            // Atualiza o relógio atual
+            const horas = agora.getHours().toString().padStart(2, '0');
+            const minutos = agora.getMinutes().toString().padStart(2, '0');
+            const segundos = agora.getSeconds().toString().padStart(2, '0');
+            document.getElementById('relogio').textContent = `${horas}:${minutos}:${segundos}`;
+
+            // Calcula o tempo decorrido
+            const diferenca = agora - dataInicial;
+            const segundosDecorridos = Math.floor(diferenca / 1000);
+            const minutosDecorridos = Math.floor(segundosDecorridos / 60);
+            const horasDecorridas = Math.floor(minutosDecorridos / 60);
+            const diasDecorridos = Math.floor(horasDecorridas / 24);
+            const anosDecorridos = Math.floor(diasDecorridos / 365); // Aproximado
+
+            const diasRestantes = diasDecorridos % 365;
+            const horasRestantes = horasDecorridas % 24;
+            const minutosRestantes = minutosDecorridos % 60;
+            const segundosRestantes = segundosDecorridos % 60;
+
+            document.getElementById('tempo-decorrido').textContent = 
+                `Amando você a mais de... ${anosDecorridos} anos, ${diasRestantes} dias, ${horasRestantes} horas, ${minutosRestantes} minutos, ${segundosRestantes} segundos ❤️❤️`;
+        }
+
+        setInterval(atualizarTempo, 1000);
+        atualizarTempo();
+    </script>
+</body>
+</html>
